@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import UpLoadModal from '../components/UpLoadModal';
-
-
-
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import search from '../assets/images/search.svg';
 import MainContent from '../components/MainContent';
-
+import flower from '../assets/images/flower.svg'
+import comment from '../assets/images/comment.svg'
 let datas = [
     {
         titImg: "https://picsum.photos/id/237/200/300",
@@ -60,6 +61,18 @@ let datas = [
         id: "",
         name: "달봉이아들",
         type: "public",
+        title: "에델바이스 꽃말이3 ㅇㅇㅇㅇㅇㅇ",
+        tags: ["태그", "길면", "두줄"],
+        place: "인천앞바다",
+        date: "24.01.19",
+        like: 120,
+        comment: 3,
+    },
+    {
+        titImg: "https://picsum.photos/id/233/200/300",
+        id: "",
+        name: "달봉이아들",
+        type: "private",
         title: "에델바이스 꽃말이3 ㅇㅇㅇㅇㅇㅇ",
         tags: ["태그", "길면", "두줄"],
         place: "인천앞바다",
@@ -172,6 +185,30 @@ const Memory = () => {
     const [btnState, setBtnState] = useState('public');
     const [isUpLoadModalOpend, setIsUpLoadModalOpend] = useState(false);
     const [fileName, setFileName] = useState('');
+    const [startDate, setStartDate] = useState(new Date());
+    const [inputValue, setInputValue] = useState('');
+    const [items, setItems] = useState([]);
+
+
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+    };
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter' && inputValue.trim() !== '') {
+            // 중복 확인: 입력 값이 배열에 존재하지 않는 경우에만 추가
+            if (!items.includes(inputValue)) {
+              setItems([...items, inputValue]); // 배열에 새 값 추가
+            }
+            setInputValue(''); // 입력 필드 초기화
+          }
+    };
+
+
+    const handleDelete = (index) => {
+        setItems(items.filter((_, i) => i !== index)); // 해당 인덱스의 항목을 제외하고 배열 업데이트
+    };
+
     const handleButtonClick = (button) => {
         setBtnState(button)
     }
@@ -212,7 +249,7 @@ const Memory = () => {
                                 <FileUpload>
 
                                     <input class="upload-name" value={fileName} laceholder="첨부파일" />
-                                    <label for="file">파일 선택</label>
+                                    <label htmlfor="file">파일 선택</label>
                                     <input type="file" id="file" onChange={handleFileChange} />
 
                                 </FileUpload>
@@ -224,25 +261,57 @@ const Memory = () => {
                             </FormGroup>
                         </RightSide>
                         <LeftSide>
-                        <FormGroup>
+                            <FormGroup>
                                 <label htmlFor="Tag" style={{ display: 'block' }}>태그</label>
-                                <input type="text" id="Tag" />
+                                <input
+                                    type="text"
+                                    value={inputValue}
+                                    onChange={handleInputChange}
+                                    onKeyUp={handleKeyPress}
+                                    placeholder="입력 후 엔터를 눌러 추가하세요"
+                                />
+                                <ul style={{display:"flex",gap:"4px",flexWrap:"wrap"}}>
+                                    {items.map((item, index) => (
+                                        <NostelgiaList key={index}>
+                                            #{item}
+                                            <button onClick={() => handleDelete(index)}>X</button>
+                                        </NostelgiaList>
+                                    ))}
+                                </ul>
                             </FormGroup>
-                        <FormGroup>
+                            <FormGroup>
                                 <label htmlFor="Place" style={{ display: 'block' }}>추억의 장소</label>
                                 <input type="text" id="Place" />
+
+
                             </FormGroup>
-                        <FormGroup>
-                                <label htmlFor="Place" style={{ display: 'block' }}>추억의 순간</label>
-                                <input type="text" id="Place" />
+                            <FormGroup>
+                                <DayMonthYear>
+                                    <label htmlFor="Place" style={{ display: 'block' }}>추억의 순간</label>
+                                    <DatePicker
+                                        selected={startDate}
+                                        onChange={(date) => setStartDate(date)}
+                                        dateFormat="Pp" // 날짜와 시간 형식
+                                    />
+                                </DayMonthYear>
+
+                                {/* <input type="text" id="Date" placeholder='YYYY-MM-DD'/> */}
                             </FormGroup>
-                        <FormGroup>
-                                <label htmlFor="Place" style={{ display: 'block' }}>추억 공개 선택</label>
-                                <input type="text" id="Place" />
+                            <FormGroup>
+
+                                <GroupPriv>
+                                    <label style={{ display: 'block' }}>추억 공개 선택</label>
+                                    <label class="check_container">
+
+                                        <input type="checkbox" id="groupPrivate" />
+                                        <span></span>
+                                    </label>
+
+                                </GroupPriv>
                             </FormGroup>
-                        <FormGroup>
+                            <FormGroup>
                                 <label htmlFor="PW" style={{ display: 'block' }}>비밀번호 생성</label>
-                                <input type="text" id="PW" placeholder="추억 비밀번호 생성"/>
+                                <input type="text" id="PW" placeholder="추억 비밀번호 생성" />
                             </FormGroup>
                         </LeftSide>
                     </FlexBox>
@@ -284,40 +353,57 @@ const Memory = () => {
                 </PostListHeader>
                 <PostListBody>
                     <ul>
-                        {datas.map((data, index) => {
+                        {datas.map((data, index) => (
+                            btnState === 'public' ?
+                                (
+                                    data.type === btnState && (
+                                        <PostListLi key={index}>
+                                            <TitImg>
+                                                <img src={data.titImg} alt="이미지" />
+                                            </TitImg>
+                                            <NameType>
+                                                <span>{data.name}</span> | <span>{data.type === "public" ? "공개" : "비공개"}</span>
+                                            </NameType>
+                                            <PostTit>{data.title}</PostTit>
+                                            <PostTags >
+                                                {data.tags.map((tg) => (
+                                                    <span>#{tg}</span>
+                                                ))}
+                                            </PostTags>
+                                            <PlaceLike>
+                                                <PlaceDate>
+                                                    <span>{data.place}</span> · <span>{data.date}</span>
+                                                </PlaceDate>
+                                                <LikeComment>
+                                                    <span class="fl"><i></i> {data.like}</span> <span class="comment"><i></i> {data.comment}</span>
+                                                </LikeComment>
+                                            </PlaceLike>
 
+                                        </PostListLi>
+                                    )
+                                ) : (
+                                    data.type === btnState && (
+                                        <PostListLi key={index}>
 
+                                            <NameType>
+                                                <span>{data.name}</span> | <span>{data.type === "public" ? "공개" : "비공개"}</span>
+                                            </NameType>
+                                            <PostTit>{data.title}</PostTit>
 
+                                            <PlaceLike>
+                                                <PlaceDate>
+                                                    <span>{data.place}</span> · <span>{data.date}</span>
+                                                </PlaceDate>
+                                                <LikeComment>
+                                                    <span class='fl'><i></i> {data.like}</span> <span class='comment'><i></i> {data.comment}</span>
+                                                </LikeComment>
+                                            </PlaceLike>
 
-                            return (
-                                <PostListLi key={index}>
-                                    <TitImg>
-                                        <img src={data.titImg} alt="이미지" />
-                                    </TitImg>
-                                    <NameType>
-                                        <span>{data.name}</span> | <span>{data.type === "public" ? "공개" : "비공개"}</span>
-                                    </NameType>
+                                        </PostListLi>
+                                    )
 
-
-                                    <PostTit>{data.title}</PostTit>
-                                    <PostTags className="dddd">
-                                        {data.tags.map((tg) => (
-                                            <span>#{tg}</span>
-                                        ))}
-                                    </PostTags>
-
-                                    <PlaceLike>
-                                        <PlaceDate>
-                                            <span>{data.place}</span> · <span>{data.date}</span>
-                                        </PlaceDate>
-                                        <LikeComment>
-                                            <span><i></i> {data.like}</span> <span><i></i> {data.comment}</span>
-                                        </LikeComment>
-                                    </PlaceLike>
-
-                                </PostListLi>
-                            )
-                        })}
+                                )
+                        ))}
 
                     </ul>
                 </PostListBody>
@@ -366,6 +452,7 @@ const PHeaderTopBtn = styled.button`
 const PHeaderBottom = styled.div`
     display:flex;
     justify-content: space-between;
+    align-items: center;
 `
 
 const PHeaderBottomBtn = styled.button`
@@ -378,12 +465,29 @@ const PHeaderBottomBtn = styled.button`
 const SearchBar = styled.div`
     flex:1;
     background-color:#eee;
+    display:flex;
+    padding-left:10px;
+    align-items: center;;
+    height:45px;
+    border-radius: 6px;
+    i{
+        display:block;
+        width:40px;
+        height:50%;
+        background:url(${search}) no-repeat center / contain;
+    }
     input{
+        display:block;
         width:100%;
         background-color:unset;
         border:none;
         margin-right:40px;
         padding:14px;
+        box-sizing:border-box;
+        height:100%;
+    }
+    input:focus{
+        outline:none;
     }
     button{
         display:block;
@@ -490,8 +594,25 @@ const PlaceDate = styled.div`
 const LikeComment = styled.div`
     font-size:14px;
     color:#8d8d8d;
+    span{
+        display:inline-flex;
+        height:18px;
+        align-items: center;
+    }
+    span i {
+        display:block;
+        width:18px;
+        height:100%;
+        background:no-repeat center / contain;
+    }
+    span.fl i{
+        background-image:url(${flower})
+    }
+    span.comment i{
+        background-image:url(${comment})
+    }
     span:nth-child(1){
-        margin-right:20px;
+        margin-right:10px;
     }
 `
 const FlexBox = styled.div`
@@ -499,6 +620,7 @@ const FlexBox = styled.div`
     justify-content: center;
     max-width:1240px;
     margin:auto;
+
 `
 const FormGroup = styled.div`
   margin-top:40px;
@@ -591,6 +713,116 @@ const DoUpLoadBtn = styled.div`
     font-size:16px;
     color:#fff;
     text-align: center;
+`
+
+
+const GroupPriv = styled.div`
+label.check_container {
+  display: inline-block;
+  position: relative;
+  padding-left: 30px; /* 커스텀 체크박스의 크기에 따라 여백 조정 */
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none; /* 텍스트 드래그 방지 */
+
+}
+
+
+  input[type="checkbox"]:checked + span {
+    background-color:#000;
+}
+  input{
+    display:none;
+  }
+  span{
+    position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px; /* 체크박스의 높이 */
+  width: 48px; /* 체크박스의 너비 */
+  background-color: #ccc; /* 기본 체크박스 색상 */
+  border-radius: 50px; /* 체크박스를 둥글게 만들고 싶을 때 */
+  transition:all 0.5s
+  }
+  span::after{ 
+  content: "";
+  position: absolute;
+  display: block;
+  }
+  input[type="checkbox"]:checked + span:after{
+    display: block;
+    left:calc(100% - 22px)
+  }
+  span:after{
+  top:50%;
+  transform:translateY(-50%);
+  left:2px;
+  width: 20px;
+  height: 20px;
+  border-radius:50%;
+  background-color:#fff;
+  transition:all 0.5s;
+  }
+`
+const DayMonthYear = styled.div`
+    /* 날짜 선택기의 전체 컨테이너 스타일 */
+.react-datepicker {
+  font-size: 12px; /* 전체 글꼴 크기 */
+  border-radius: 10px; /* 모서리 둥글게 */
+  border: 1px solid #ccc; /* 테두리 색상 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+/* 날짜 선택기의 헤더 부분 스타일 */
+.react-datepicker__header {
+  background-color: #ffffff; /* 헤더 배경색 */
+  border-bottom: 1px solid #ddd; /* 헤더 하단 테두리 */
+  font-weight: bold; /* 헤더 텍스트 굵게 */
+}
+
+/* 요일 스타일 */
+.react-datepicker__day-name {
+  color: #888; /* 요일 색상 */
+  font-weight: normal; /* 요일 텍스트 굵기 */
+}
+
+/* 주말 날짜 스타일 */
+.react-datepicker__day--weekend {
+  color: #e74c3c; /* 주말 날짜 색상 (빨간색) */
+}
+
+/* 선택된 날짜 스타일 */
+.react-datepicker__day--selected {
+  background-color: #3498db; /* 선택된 날짜 배경색 */
+  color: #fff; /* 선택된 날짜 글자 색상 */
+  border-radius: 50%; /* 선택된 날짜 모서리를 둥글게 */
+}
+
+/* 오늘 날짜 스타일 */
+.react-datepicker__day--today {
+  font-weight: bold; /* 오늘 날짜 텍스트 굵게 */
+  color: #2c3e50; /* 오늘 날짜 색상 */
+}
+
+/* 월 선택기 스타일 */
+.react-datepicker__month-dropdown-container,
+.react-datepicker__year-dropdown-container {
+  font-size: 14px; /* 월/년 선택기의 글꼴 크기 */
+}
+`
+
+const NostelgiaList = styled.li`
+    list-style-type: none;
+    background-color:#eee;
+    font-size:14px;
+    padding:2px 4px;
+
+    button{
+        font-size:14px;
+        cursor: pointer;
+        border:none;
+        background-color:none;
+    }
 `
 
 export default Memory;

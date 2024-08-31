@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-function App() {
-  return (
-    <div>
-      <h1>hello wolrd</h1>
-    </div>
-=======
 // App.jsx
 import React from 'react';
 import Header from './components/Header';
@@ -27,7 +20,6 @@ const App = () => {
         </Routes>
         <Footer></Footer>
     </BrowserRouter>
->>>>>>> 0a430aa (group details)
   );
 };
 
