@@ -8,6 +8,12 @@ const GroupCard = () => {
   const [fileName, setFileName] = useState('');
   const [isDelModalOpend, setIsDelModalOpend] = useState(false);
 
+//api 연동 후 바꿔줄 것
+
+
+
+//api 연동 후 바꿔줄 것
+
 
 
   const handleFileChange = (event) => {
@@ -44,6 +50,7 @@ const GroupCard = () => {
           <FileUpload>
            
                 <input class="upload-name" value={fileName} laceholder="첨부파일" />
+
                 <label for="file">파일 선택</label> 
                 <input type="file" id="file" onChange={handleFileChange}/>
             
@@ -56,8 +63,13 @@ const GroupCard = () => {
           </FormGroup>
           <FormGroup>
             <GroupPriv>
-            <label htmlFor="groupPrivate" style={{ display: 'block' }}>그룹 공개 선택</label>
+            <label  style={{ display: 'block' }}>그룹 공개 선택</label>
+            <label class="check_container">
+
             <input type="checkbox" id="groupPrivate" />
+            <span></span>
+            </label>
+
             </GroupPriv>
 
           </FormGroup>
@@ -295,8 +307,54 @@ align-items: center;;
 }
 
 `
+
 const GroupPriv = styled.div`
-    
+label.check_container {
+  display: inline-block;
+  position: relative;
+  padding-left: 30px; /* 커스텀 체크박스의 크기에 따라 여백 조정 */
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none; /* 텍스트 드래그 방지 */
+
+}
+
+
+  input[type="checkbox"]:checked + span {
+    background-color:#000;
+}
+  input{
+    display:none;
+  }
+  span{
+    position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px; /* 체크박스의 높이 */
+  width: 48px; /* 체크박스의 너비 */
+  background-color: #ccc; /* 기본 체크박스 색상 */
+  border-radius: 50px; /* 체크박스를 둥글게 만들고 싶을 때 */
+  transition:all 0.5s
+  }
+  span::after{ 
+  content: "";
+  position: absolute;
+  display: block;
+  }
+  input[type="checkbox"]:checked + span:after{
+    display: block;
+    left:calc(100% - 22px)
+  }
+  span:after{
+  top:50%;
+  transform:translateY(-50%);
+  left:2px;
+  width: 20px;
+  height: 20px;
+  border-radius:50%;
+  background-color:#fff;
+  transition:all 0.5s;
+  }
 `
 
 const ModifyButton = styled.button`

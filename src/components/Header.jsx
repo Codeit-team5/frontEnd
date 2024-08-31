@@ -13,7 +13,7 @@ const HeaderContainer = styled.header`
 const Header = () => {
   return (
     <HeaderContainer>
-      <img src="logo.svg"></img>
+      <img src="logo.svg" alt="logo"></img>
     </HeaderContainer>
   );
 };

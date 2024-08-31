@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import close from "../assets/images/close.svg"
 
 const UpLoadModal = ({ children, setIsOpend , styles}) => {
   return (
@@ -9,9 +9,10 @@ const UpLoadModal = ({ children, setIsOpend , styles}) => {
 
         <ContentArea style={styles}>
         <CloseButton onClick={() => setIsOpend((prev) => !prev)}>
+          <img src={close} alt="closeBtn" />
         </CloseButton>
         <HeaderContainer>
-      <img src="logo.svg"></img>
+      <img src="logo.svg" alt="logo"></img>
     </HeaderContainer>
           <div>{children}</div>
         </ContentArea>
@@ -30,6 +31,7 @@ const ModalWrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 600;
+
 `;
 
 const ModalContentWrapper = styled.div`
@@ -48,12 +50,13 @@ const ModalContentWrapper = styled.div`
 
 const CloseButton = styled.div`
   position: absolute;
-  width:40px;
-  height:40px;
-  border:1px solid #000;
-  top: 40px;
-  right: 40px;
+  width:34px;
+  height:34px;
+  /* border:1px solid #000; */
+  top: 160px;
+  right: 386px;
   z-index: 500;
+  object-position: center;
   :hover {
     cursor: pointer;
   }
@@ -66,6 +69,11 @@ const ContentArea = styled.div`
   // background-color: red;
   text-align: center;
   position:relative;
+  overflow-y:scroll;
+  padding-bottom:4rem;
+  ::-webkit-scrollbar{
+        display:none;
+    }
 `;
 
 const HeaderContainer = styled.header`
@@ -73,3 +81,4 @@ const HeaderContainer = styled.header`
   justify-content: center;
   margin-top: 26px
   `
+  
