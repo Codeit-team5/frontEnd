@@ -24,7 +24,7 @@ const Logo = styled.div`
   height: 48px;
   margin-top: 26px;
   cursor: pointer;
-  margin-left: 700px;
+  margin-left: 730px;
 `;
 
 const CreateGroup = styled.div`
