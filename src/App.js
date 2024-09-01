@@ -1,17 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
-import Mainpage from "./pages/MainPage";
+import Memory from "./pages/Memory";
+import PassWord from "./pages/PassWord";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Mainpage />} />
-        </Route>
+        <Route path="/" element={<Memory />} />
+        <Route path="/password" element={<PassWord />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
-}
+};
 
 export default App;
