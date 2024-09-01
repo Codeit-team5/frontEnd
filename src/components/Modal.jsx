@@ -1,15 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import close from "../assets/images/close.svg"
-const Modal = ({ children, setIsOpend , styles}) => {
+import close from "../assets/images/close.svg";
+const Modal = ({ children, setIsOpend, styles }) => {
   return (
-    <ModalWrapper >
+    <ModalWrapper>
       <ModalContentWrapper>
-
         <ContentArea style={styles}>
-        <CloseButton onClick={() => setIsOpend((prev) => !prev)}>
-          <img src={close} alt="closeBtn" />
-        </CloseButton>
+          <CloseButton onClick={() => setIsOpend(prev => !prev)}>
+            <img src={close} alt="closeBtn" />
+          </CloseButton>
           <div>{children}</div>
         </ContentArea>
       </ModalContentWrapper>
@@ -33,7 +32,7 @@ const ModalContentWrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  max-width:480px;
+  max-width: 480px;
 
   /* background-color: red; */
   position: relative;
@@ -45,8 +44,8 @@ const ModalContentWrapper = styled.div`
 
 const CloseButton = styled.div`
   position: absolute;
-  width:34px;
-  height:34px;
+  width: 34px;
+  height: 34px;
   /* border:1px solid #000; */
   top: 40px;
   right: 40px;
@@ -62,5 +61,5 @@ const ContentArea = styled.div`
   display: block;
   // background-color: red;
   text-align: center;
-  position:relative;
+  position: relative;
 `;

@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const PageContainer = styled.div`
   width: 100%;
@@ -77,19 +77,19 @@ const FooterButton = styled.button`
 const data = [
   {
     id: 1,
-    title: '인천 앞바다에서 무려 60cm 활어를 낚다!',
-    description: '인천 앞바다',
-    image: 'https://via.placeholder.com/300x200',
-    date: '24.01.19 18:00',
+    title: "인천 앞바다에서 무려 60cm 활어를 낚다!",
+    description: "인천 앞바다",
+    image: "https://via.placeholder.com/300x200",
+    date: "24.01.19 18:00",
     likes: 120,
     comments: 8,
   },
   {
     id: 2,
-    title: '서울 소풍',
-    description: '서울특별시',
-    image: 'https://via.placeholder.com/300x200',
-    date: '23.05.07 18:00',
+    title: "서울 소풍",
+    description: "서울특별시",
+    image: "https://via.placeholder.com/300x200",
+    date: "23.05.07 18:00",
     likes: 120,
     comments: 8,
   },
@@ -99,7 +99,7 @@ const App = () => {
   return (
     <PageContainer>
       <CardGrid>
-        {data.map((item) => (
+        {data.map(item => (
           <Card key={item.id}>
             <CardImage src={item.image} alt={item.title} />
             <CardContent>

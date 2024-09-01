@@ -1,95 +1,131 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import Modal from '../components/Modal';
-
+import React, { useState } from "react";
+import styled from "styled-components";
+import Modal from "../components/Modal";
 
 const GroupCard = () => {
   const [isModalOpend, setIsModalOpend] = useState(false);
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState("");
   const [isDelModalOpend, setIsDelModalOpend] = useState(false);
 
-//api 연동 후 바꿔줄 것
+  //api 연동 후 바꿔줄 것
 
+  //api 연동 후 바꿔줄 것
 
-
-//api 연동 후 바꿔줄 것
-
-
-
-  const handleFileChange = (event) => {
+  const handleFileChange = event => {
     const file = event.target.files[0]; // 선택된 파일을 가져옵니다.
     if (file) {
       setFileName(file.name); // 파일명이 있으면 상태를 업데이트합니다.
     } else {
-      setFileName(''); // 파일이 선택되지 않으면 상태를 초기화합니다.
+      setFileName(""); // 파일이 선택되지 않으면 상태를 초기화합니다.
     }
   };
 
-
   const modifyBtnClick = () => {
-    setIsModalOpend(true)
-  }
+    setIsModalOpend(true);
+  };
 
   const groupDelBtnClick = () => {
-    setIsDelModalOpend(true)
-  }
-
-
+    setIsDelModalOpend(true);
+  };
 
   return (
     <Container>
       {isModalOpend && (
-        <Modal setIsOpend={setIsModalOpend} styles={{ backgroundColor: '#fff', padding: '40px', textAlign: 'left' }}>
-          <h3 style={{ fontSize: '24px', marginBottom: '60px', textAlign: "center", fontWeight: "700" }}>그룹 정보 수정</h3>
+        <Modal
+          setIsOpend={setIsModalOpend}
+          styles={{
+            backgroundColor: "#fff",
+            padding: "40px",
+            textAlign: "left",
+          }}
+        >
+          <h3
+            style={{
+              fontSize: "24px",
+              marginBottom: "60px",
+              textAlign: "center",
+              fontWeight: "700",
+            }}
+          >
+            그룹 정보 수정
+          </h3>
           <FormGroup>
-            <label htmlFor="groupName" style={{ display: 'block' }}>그룹명</label>
+            <label htmlFor="groupName" style={{ display: "block" }}>
+              그룹명
+            </label>
             <input type="text" id="groupName" />
           </FormGroup>
           <FormGroup>
-          <strong>대표 이미지</strong>
-          <FileUpload>
-           
-                <input class="upload-name" value={fileName} laceholder="첨부파일" />
+            <strong>대표 이미지</strong>
+            <FileUpload>
+              <input
+                class="upload-name"
+                value={fileName}
+                laceholder="첨부파일"
+              />
 
-                <label for="file">파일 선택</label> 
-                <input type="file" id="file" onChange={handleFileChange}/>
-            
-          </FileUpload>
+              <label for="file">파일 선택</label>
+              <input type="file" id="file" onChange={handleFileChange} />
+            </FileUpload>
           </FormGroup>
 
           <FormGroup>
-            <label htmlFor="groupIntro" style={{ display: 'block' }}>그룹소개</label>
-            <textarea name="groupIntro" id="groupIntro"></textarea>
+            <label htmlFor="groupIntro" style={{ display: "block" }}>
+              그룹소개
+            </label>
+            <textarea name="groupIntro" id="groupIntro" />
           </FormGroup>
           <FormGroup>
             <GroupPriv>
-            <label  style={{ display: 'block' }}>그룹 공개 선택</label>
-            <label class="check_container">
-
-            <input type="checkbox" id="groupPrivate" />
-            <span></span>
-            </label>
-
+              <label style={{ display: "block" }}>그룹 공개 선택</label>
+              <label class="check_container">
+                <input type="checkbox" id="groupPrivate" />
+                <span />
+              </label>
             </GroupPriv>
-
           </FormGroup>
           <FormGroup>
-            
-            <label htmlFor="check" style={{ display: 'block' }}>수정 권한 인증</label>
-            <input placeholder='그룹 비밀번호를 입력해 주세요' type="text" id="check" />
+            <label htmlFor="check" style={{ display: "block" }}>
+              수정 권한 인증
+            </label>
+            <input
+              placeholder="그룹 비밀번호를 입력해 주세요"
+              type="text"
+              id="check"
+            />
           </FormGroup>
           <ModifyButton>수정하기</ModifyButton>
-
         </Modal>
       )}
       {isDelModalOpend && (
-        <Modal setIsOpend={setIsDelModalOpend} styles={{ backgroundColor: '#fff', padding: '40px', textAlign: 'left' }}>
-                      <h3 style={{ fontSize: '24px', marginBottom: '60px', textAlign: "center", fontWeight: "700" }}>그룹 삭제</h3>
+        <Modal
+          setIsOpend={setIsDelModalOpend}
+          styles={{
+            backgroundColor: "#fff",
+            padding: "40px",
+            textAlign: "left",
+          }}
+        >
+          <h3
+            style={{
+              fontSize: "24px",
+              marginBottom: "60px",
+              textAlign: "center",
+              fontWeight: "700",
+            }}
+          >
+            그룹 삭제
+          </h3>
 
-                      <FormGroup>
-            
-            <label htmlFor="check" style={{ display: 'block' }}>삭제 권한 인증</label>
-            <input placeholder='그룹 비밀번호를 입력해 주세요' type="text" id="check" />
+          <FormGroup>
+            <label htmlFor="check" style={{ display: "block" }}>
+              삭제 권한 인증
+            </label>
+            <input
+              placeholder="그룹 비밀번호를 입력해 주세요"
+              type="text"
+              id="check"
+            />
           </FormGroup>
         </Modal>
       )}
@@ -108,27 +144,32 @@ const GroupCard = () => {
                 <button onClick={modifyBtnClick}>그룹 정보 수정하기</button>
                 <button onClick={groupDelBtnClick}>그룹 삭제하기</button>
               </DelMody>
-
             </HeaderInfo>
-            <Title>달봉이네 가족 달봉이네 가족 어디까지 길어지는 거예요?? 글자수 제한 한 줄까지</Title>
+            <Title>
+              달봉이네 가족 달봉이네 가족 어디까지 길어지는 거예요?? 글자수 제한
+              한 줄까지
+            </Title>
             <Description>
-              서로 한 마음으로 응원하고 아끼는 달봉이네 가족입니다. 서로 한 마음으로 응원하고 아끼는 달봉이네 가족입니다. 서로 한 마음으로 응원하고 아끼는 달봉이네 가족입니다. 그냥 끝까지로 할게요 그리고 두 줄까지만! Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui eaque necessitatibus ex reprehenderit facilis id vero dolor recusandae est quam sit dignissimos cum excepturi et aliquam iste quae, consectetur vitae!
+              서로 한 마음으로 응원하고 아끼는 달봉이네 가족입니다. 서로 한
+              마음으로 응원하고 아끼는 달봉이네 가족입니다. 서로 한 마음으로
+              응원하고 아끼는 달봉이네 가족입니다. 그냥 끝까지로 할게요 그리고
+              두 줄까지만! Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Qui eaque necessitatibus ex reprehenderit facilis id vero
+              dolor recusandae est quam sit dignissimos cum excepturi et aliquam
+              iste quae, consectetur vitae!
             </Description>
           </Header>
-      <FlexBox>
-      <Badges>
-            <img src="badges/badge1.png" alt="badge"></img>
-            <img src="badges/badge2.png" alt="badge"></img>
-            <img src="badges/badge3.png" alt="badge"></img>
-          </Badges>
-          <Actions>
-          <ActionButton>공감 보내기</ActionButton>
-        </Actions>
-      </FlexBox>
-
+          <FlexBox>
+            <Badges>
+              <img src="badges/badge1.png" alt="badge" />
+              <img src="badges/badge2.png" alt="badge" />
+              <img src="badges/badge3.png" alt="badge" />
+            </Badges>
+            <Actions>
+              <ActionButton>공감 보내기</ActionButton>
+            </Actions>
+          </FlexBox>
         </ContentWrapper>
-
-
       </MainContent>
     </Container>
   );
@@ -145,12 +186,12 @@ const Container = styled.div`
 const MainContent = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;  /* 이미지와 텍스트를 수직 중앙 정렬 */
+  align-items: center; /* 이미지와 텍스트를 수직 중앙 정렬 */
 `;
 
 const MainImage = styled.img`
   width: 30%;
-  max-width:262px;
+  max-width: 262px;
   aspect-ratio: 262 / 273 auto;
   border-radius: 10px;
   object-fit: cover;
@@ -174,12 +215,11 @@ const HeaderInfo = styled.div`
 const Date = styled.span`
   font-size: 14px;
   color: #282828;
-  
 `;
 
 const Status = styled.span`
   font-size: 14px;
-  color: #8D8D8D;
+  color: #8d8d8d;
 `;
 
 const Title = styled.h1`
@@ -203,9 +243,6 @@ const Description = styled.p`
   -webkit-box-orient: vertical;
 `;
 
-
-
-
 const Badges = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -220,82 +257,80 @@ const Badges = styled.div`
 // `;
 
 const Actions = styled.div`
-  margin-left: 20px;  /* ContentWrapper와 Actions 사이의 간격 */
+  margin-left: 20px; /* ContentWrapper와 Actions 사이의 간격 */
 `;
 
 const ActionButton = styled.button`
-  width:187px;
+  width: 187px;
   padding: 16px;
   border: none;
   border-radius: 6px;
   font-size: 16px;
-  background:unset;
-  border:1px solid #282828;
+  background: unset;
+  border: 1px solid #282828;
   cursor: pointer;
   color: #333;
-  
 `;
 const FormGroup = styled.div`
-  margin-top:40px;
-  label{
-    display:block;
-    margin-bottom:10px;
-    font-weight:500;
-    line-height:20px;
+  margin-top: 40px;
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    line-height: 20px;
   }
-  input{
-    width:100%;
-    border-radius:6px;
-    padding:14px 20px;
-    box-sizing:border-box;
-    font-size:14px;
-    color:#282828;
-    border:1px solid #dddddd;
+  input {
+    width: 100%;
+    border-radius: 6px;
+    padding: 14px 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #282828;
+    border: 1px solid #dddddd;
   }
-  textarea{
-    width:100%;
-    border-radius:6px;
-    border:1px solid #dddddd;
-    height:120px;
+  textarea {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #dddddd;
+    height: 120px;
   }
-  strong{
-        display:block;
-    margin-bottom:10px;
-    font-weight:500;
-    line-height:20px;
+  strong {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    line-height: 20px;
   }
-`
+`;
 const FileUpload = styled.div`
-display:flex;
-align-items: center;;
-  
-  .upload-name{
+  display: flex;
+  align-items: center;
 
-    box-sizing:border-box;
+  .upload-name {
+    box-sizing: border-box;
     display: inline-block;
     padding: 14px 20px;
     vertical-align: middle;
     border: 1px solid #dddddd;
-    flex:1;
+    flex: 1;
     color: #999999;
-    width:auto;
+    width: auto;
   }
-  label{
+  label {
     display: inline-block;
     padding: 14px 24px;
     color: #fff;
     vertical-align: middle;
     background-color: #999999;
-    font-size:14px;
-    margin-bottom:0;
+    font-size: 14px;
+    margin-bottom: 0;
     text-align: center;
     cursor: pointer;
     margin-left: 10px;
-    border:1px solid #282828;
-    box-sizing:border-box;
-    background:unset;
-    color:#282828;
-    border-radius:6px;
+    border: 1px solid #282828;
+    box-sizing: border-box;
+    background: unset;
+    color: #282828;
+    border-radius: 6px;
   }
   input[type="file"] {
     position: absolute;
@@ -304,77 +339,74 @@ align-items: center;;
     padding: 0;
     overflow: hidden;
     border: 0;
-}
-
-`
+  }
+`;
 
 const GroupPriv = styled.div`
-label.check_container {
-  display: inline-block;
-  position: relative;
-  padding-left: 30px; /* 커스텀 체크박스의 크기에 따라 여백 조정 */
-  cursor: pointer;
-  font-size: 18px;
-  user-select: none; /* 텍스트 드래그 방지 */
-
-}
-
+  label.check_container {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px; /* 커스텀 체크박스의 크기에 따라 여백 조정 */
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none; /* 텍스트 드래그 방지 */
+  }
 
   input[type="checkbox"]:checked + span {
-    background-color:#000;
-}
-  input{
-    display:none;
+    background-color: #000;
   }
-  span{
+  input {
+    display: none;
+  }
+  span {
     position: absolute;
-  top: 0;
-  left: 0;
-  height: 24px; /* 체크박스의 높이 */
-  width: 48px; /* 체크박스의 너비 */
-  background-color: #ccc; /* 기본 체크박스 색상 */
-  border-radius: 50px; /* 체크박스를 둥글게 만들고 싶을 때 */
-  transition:all 0.5s
+    top: 0;
+    left: 0;
+    height: 24px; /* 체크박스의 높이 */
+    width: 48px; /* 체크박스의 너비 */
+    background-color: #ccc; /* 기본 체크박스 색상 */
+    border-radius: 50px; /* 체크박스를 둥글게 만들고 싶을 때 */
+    transition: all 0.5s;
   }
-  span::after{ 
-  content: "";
-  position: absolute;
-  display: block;
-  }
-  input[type="checkbox"]:checked + span:after{
+  span::after {
+    content: "";
+    position: absolute;
     display: block;
-    left:calc(100% - 22px)
   }
-  span:after{
-  top:50%;
-  transform:translateY(-50%);
-  left:2px;
-  width: 20px;
-  height: 20px;
-  border-radius:50%;
-  background-color:#fff;
-  transition:all 0.5s;
+  input[type="checkbox"]:checked + span:after {
+    display: block;
+    left: calc(100% - 22px);
   }
-`
+  span:after {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: all 0.5s;
+  }
+`;
 
 const ModifyButton = styled.button`
-  width:100%;
-  border:none;
-  color:#fff;
-  background:#282828;
-  margin-top:40px;
-  padding:15px;
-  font-size:16px;
-`
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: #282828;
+  margin-top: 40px;
+  padding: 15px;
+  font-size: 16px;
+`;
 const DelMody = styled.div`
-  button{
-    margin-left:40px;
-    border:none;
-    background:unset;
+  button {
+    margin-left: 40px;
+    border: none;
+    background: unset;
   }
-`
+`;
 const FlexBox = styled.div`
-  display:flex;
+  display: flex;
   justify-content: space-between;
-`
+`;
 export default GroupCard;

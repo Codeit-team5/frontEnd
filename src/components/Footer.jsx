@@ -1,6 +1,6 @@
 // Footer.jsx
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 // Styled Component 정의
 const FooterContainer = styled.footer`

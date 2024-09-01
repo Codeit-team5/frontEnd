@@ -1,19 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import close from "../assets/images/close.svg"
+import close from "../assets/images/close.svg";
 
-const UpLoadModal = ({ children, setIsOpend , styles}) => {
+const UpLoadModal = ({ children, setIsOpend, styles }) => {
   return (
-    <ModalWrapper >
+    <ModalWrapper>
       <ModalContentWrapper>
-
         <ContentArea style={styles}>
-        <CloseButton onClick={() => setIsOpend((prev) => !prev)}>
-          <img src={close} alt="closeBtn" />
-        </CloseButton>
-        <HeaderContainer>
-      <img src="logo.svg" alt="logo"></img>
-    </HeaderContainer>
+          <CloseButton onClick={() => setIsOpend(prev => !prev)}>
+            <img src={close} alt="closeBtn" />
+          </CloseButton>
+          <HeaderContainer>
+            <img src="logo.svg" alt="logo" />
+          </HeaderContainer>
           <div>{children}</div>
         </ContentArea>
       </ModalContentWrapper>
@@ -31,14 +30,12 @@ const ModalWrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 600;
-
 `;
 
 const ModalContentWrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   height: 100%;
-
 
   /* background-color: red; */
   position: relative;
@@ -50,8 +47,8 @@ const ModalContentWrapper = styled.div`
 
 const CloseButton = styled.div`
   position: absolute;
-  width:34px;
-  height:34px;
+  width: 34px;
+  height: 34px;
   /* border:1px solid #000; */
   top: 160px;
   right: 386px;
@@ -68,17 +65,16 @@ const ContentArea = styled.div`
   display: block;
   // background-color: red;
   text-align: center;
-  position:relative;
-  overflow-y:scroll;
-  padding-bottom:4rem;
-  ::-webkit-scrollbar{
-        display:none;
-    }
+  position: relative;
+  overflow-y: scroll;
+  padding-bottom: 4rem;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
-  margin-top: 26px
-  `
-  
+  margin-top: 26px;
+`;
