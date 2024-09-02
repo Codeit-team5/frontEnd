@@ -1,5 +1,7 @@
 import styled from "styled-components";
-
+import { useState } from "react";
+import SmallFlower from "../images/SmallFlower.svg";
+import { Link } from "react-router-dom";
 const GridContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -132,28 +134,57 @@ const GroupLikes = styled.p`
   color: #b8b8b8;
 `;
 
+const Flexbox2 = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const GroupList = ({ items }) => {
+  const [isPublicActive, setIsPublicActive] = useState(true);
+  const [isPrivateActive, setIsPrivateActive] = useState(false);
+
+  const filteredItems = items.filter(item =>
+    isPublicActive ? item.Public === "공개" : item.Public === "비공개",
+  );
+
   return (
     <GridContainer>
-      {items.map(card => (
+      {filteredItems.map(card => (
         <Card key={card.id}>
-          <CardImg src={card.imageUrl} alt={card.title} />
-          <CardInfo>
-            <Flexbox>
-              <Dday>{card.Dday}</Dday>
-              <Bar>|</Bar>
-              <PublicPrivate>{card.Public}</PublicPrivate>
-            </Flexbox>
-            <CardContent>
-              <CardTitle>{card.title}</CardTitle>
-              <Cardtext>{card.text}</Cardtext>
-            </CardContent>
-            <UserFlexbox>
-              <BadgeCount>획득 배지</BadgeCount>
-              <MemoryCount>추억</MemoryCount>
-              <GroupLikes>그룹 공감</GroupLikes>
-            </UserFlexbox>
-          </CardInfo>
+          <Link
+            to="/Groups"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <CardImg src={card.imageUrl} alt={card.title} />
+            <CardInfo>
+              <Flexbox>
+                <Dday>{card.Dday}</Dday>
+                <Bar>|</Bar>
+                <PublicPrivate>{card.Public}</PublicPrivate>
+              </Flexbox>
+              <CardContent>
+                <CardTitle>{card.title}</CardTitle>
+                <Cardtext>{card.text}</Cardtext>
+              </CardContent>
+              <UserFlexbox>
+                <Flexbox2>
+                  <BadgeCount>획득 배지</BadgeCount>
+                  <p>2</p>
+                </Flexbox2>
+                <Flexbox2>
+                  <MemoryCount>추억</MemoryCount>
+                  <p>8</p>
+                </Flexbox2>
+                <Flexbox2>
+                  <GroupLikes>그룹 공감</GroupLikes>
+                  <p>
+                    <img src={SmallFlower} alt="꽃" />
+                    1.5k
+                  </p>
+                </Flexbox2>
+              </UserFlexbox>
+            </CardInfo>
+          </Link>
         </Card>
       ))}
     </GridContainer>

@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const SIZES = {
   large: css`
@@ -26,23 +25,14 @@ const SIZES = {
 
 function Button({ size, children }) {
   const sizeStyle = SIZES[size];
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/");
-  };
 
-  return (
-    <StyledButton sizeStyle={sizeStyle} onClick={handleClick}>
-      {children}
-    </StyledButton>
-  );
+  return <StyledButton sizeStyle={sizeStyle}>{children}</StyledButton>;
 }
 
 const StyledButton = styled.button`
   ${p => p.sizeStyle}
 
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 10px;

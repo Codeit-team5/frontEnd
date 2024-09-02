@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import items from "../mock.json";
 
 const Button = styled.button`
   background-color: ${props => (props.isActive ? "black" : "white")};
@@ -26,20 +27,30 @@ const ButtonText = styled.span`
 `;
 
 const ToggleButtons = () => {
-  const [isPublicActive, setIsPublicActive] = useState(false);
+  const [isPublicActive, setIsPublicActive] = useState(true);
   const [isPrivateActive, setIsPrivateActive] = useState(false);
+
+  const filteredItems = items.filter(item =>
+    isPublicActive ? item.Public === "공개" : item.Public === "비공개",
+  );
 
   return (
     <div>
       <Button
         isActive={isPublicActive}
-        onClick={() => setIsPublicActive(!isPublicActive)}
+        onClick={() => {
+          setIsPublicActive(true);
+          setIsPrivateActive(false);
+        }}
       >
         <ButtonText isActive={isPublicActive}>공개</ButtonText>
       </Button>
       <Button
         isActive={isPrivateActive}
-        onClick={() => setIsPrivateActive(!isPrivateActive)}
+        onClick={() => {
+          setIsPrivateActive(true);
+          setIsPublicActive(false);
+        }}
       >
         <ButtonText isActive={isPrivateActive}>비공개</ButtonText>
       </Button>

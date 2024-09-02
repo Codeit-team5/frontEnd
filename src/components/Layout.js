@@ -1,11 +1,11 @@
+import Header from "./Header";
 import Nav from "./Nav";
 import { Outlet } from "react-router-dom";
-import NobuttonNav from "./NobuttonNav";
 
 function Layout() {
   return (
     <>
-      <NobuttonNav />
+      <Nav />
       <div>
         <Outlet />
       </div>

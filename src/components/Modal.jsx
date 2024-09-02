@@ -62,4 +62,5 @@ const ContentArea = styled.div`
   // background-color: red;
   text-align: center;
   position: relative;
+  border-radius: 6px;
 `;

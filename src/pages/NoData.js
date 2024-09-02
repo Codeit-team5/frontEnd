@@ -5,6 +5,9 @@ import Dropbox from "../components/Dropdown";
 import NoDataImg from "../images/icon.svg";
 import SecondNav from "../components/SecondNav";
 import Button from "../components/Button";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { getReviews } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -54,6 +57,11 @@ const CreateGroupMessage = styled.p`
 `;
 
 const NoData = () => {
+  const [items, setItems] = useState([]);
+  const handleLoadClick = async () => {
+    const { reviews } = await getReviews();
+    setItems(reviews);
+  };
   return (
     <>
       <SecondNav>
@@ -61,11 +69,14 @@ const NoData = () => {
         <Searchbox />
         <Dropbox />
       </SecondNav>
+      <button onClick={handleLoadClick}>불러오기</button>
       <Container>
         <NoDataIcon />
         <NoGroupMessage>등록된 공개 그룹이 없습니다.</NoGroupMessage>
         <CreateGroupMessage>가장 먼저 그룹을 만들어보세요!</CreateGroupMessage>
-        <Button size="large">그룹 만들기</Button>
+        <Link to="/CreateGroup" style={{ textDecoration: "none" }}>
+          <Button size="large">그룹 만들기</Button>
+        </Link>
       </Container>
     </>
   );

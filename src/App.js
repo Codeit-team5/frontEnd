@@ -1,18 +1,21 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Memory from "./pages/Memory";
 import PassWord from "./pages/PassWord";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import CreateGroupPage from "./pages/CreateGroupPage";
+import Layout from "./components/Layout";
+import MainPage from "./pages/MainPage";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<Memory />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<MainPage />} />
+        </Route>
+        <Route path="CreateGroup" element={<CreateGroupPage />} />
+        <Route path="Groups" element={<Memory />} />
         <Route path="/password" element={<PassWord />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 };
