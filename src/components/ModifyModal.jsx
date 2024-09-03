@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import close from "../assets/images/close.svg"
-const Modal = ({ children, setIsOpend , styles}) => {
+const ModifyModal = ({ children, setIsOpend , styles}) => {
   return (
     <ModalWrapper >
       <ModalContentWrapper>
@@ -17,7 +17,7 @@ const Modal = ({ children, setIsOpend , styles}) => {
   );
 };
 
-export default Modal;
+export default ModifyModal;
 
 const ModalWrapper = styled.div`
   width: 100vw;
@@ -33,7 +33,7 @@ const ModalContentWrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  max-width:480px;
+  max-width:1120px;
 
   /* background-color: red; */
   position: relative;
@@ -64,4 +64,3 @@ const ContentArea = styled.div`
   text-align: center;
   position:relative;
 `;
-
